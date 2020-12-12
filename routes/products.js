@@ -17,7 +17,7 @@ router.post("/add", async function (req, res, next) {
 	res.redirect("/products");
 });
 router.get("/delete/:id", async function (req, res, next) {
-	let product = await Product.findByIdAndDelete(req.params.id);
+	await Product.findByIdAndDelete(req.params.id);
 	res.redirect("/products");
 });
 router.get("/edit/:id", async function (req, res, next) {
