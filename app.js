@@ -9,7 +9,7 @@ var sessionAuth = require("./middleware/sessionAuth");
 
 var indexRouter = require("./routes/index");
 var productsRouter = require("./routes/products");
-const { Mongoose } = require("mongoose");
+//const { Mongoose } = require("mongoose");
 var usersRouter = require("./routes/users");
 
 var app = express();
