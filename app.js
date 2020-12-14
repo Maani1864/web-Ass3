@@ -3,7 +3,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-var mongoose = require("mongoose");
+
 var session = require("express-session");
 var sessionAuth = require("./middleware/sessionAuth");
 
@@ -11,6 +11,8 @@ var indexRouter = require("./routes/index");
 var productsRouter = require("./routes/products");
 const { Mongoose } = require("mongoose");
 var usersRouter = require("./routes/users");
+
+const connectDB = require("./db/connection");
 
 var app = express();
 
@@ -33,6 +35,8 @@ app.use(
 	})
 );
 
+connectDB();
+
 app.use("/", indexRouter);
 app.use("/products", productsRouter);
 app.use("/", usersRouter);
@@ -51,14 +55,5 @@ app.use(function (err, req, res, next) {
 	// render the error page
 	res.status(err.status || 500);
 	res.render("error");
-});
-const MongoClient = require("mongodb").MongoClient;
-const uri =
-	"mongodb+srv://usman:<password>@cluster0.z8u6n.mongodb.net/<dbname>?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
-client.connect((err) => {
-	const collection = client.db("test").collection("devices");
-	// perform actions on the collection object
-	client.close();
 });
 module.exports = app;
