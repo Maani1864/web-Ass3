@@ -52,11 +52,13 @@ app.use(function (err, req, res, next) {
 	res.status(err.status || 500);
 	res.render("error");
 });
-mongoose
-	.connect("mongodb://localhost/Ass3", {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-	})
-	.then(() => console.log("Connected to MongoDB......"))
-	.catch((error) => console.log(error.message));
+const MongoClient = require("mongodb").MongoClient;
+const uri =
+	"mongodb+srv://usman:<password>@cluster0.z8u6n.mongodb.net/<dbname>?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect((err) => {
+	const collection = client.db("test").collection("devices");
+	// perform actions on the collection object
+	client.close();
+});
 module.exports = app;
